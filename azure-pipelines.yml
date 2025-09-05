@@ -20,19 +20,6 @@ steps:
   inputs:
     restoreSolution: '**/*.sln'
 
-- powershell: |
-        Invoke-WebRequest -Uri https://github.com/adoptium/temurin15-binaries/releases/download/jdk-15.0.8+7/OpenJDK15U-jdk_x64_windows_hotspot_15.0.8_7.zip -OutFile jdk15.zip
-            Expand-Archive jdk15.zip -DestinationPath $(Agent.TempDirectory)\jdk15
-                echo "##vso[task.setvariable variable=JAVA_HOME]$(Agent.TempDirectory)\jdk15\jdk-15.0.8+7"
-                    echo "##vso[task.prependpath]$(JAVA_HOME)\bin"
-                      displayName: 'Install JDK 15'
-
-- task: JavaToolInstaller@0
-  inputs:
-    versionSpec: '15'
-    jdkArchitectureOption: 'x64'
-    jdkSourceOption: 'PreInstalled'
-
 - task: XamarinAndroid@1
   inputs:
     projectFile: '**/*droid*.csproj'
